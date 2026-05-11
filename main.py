@@ -11,7 +11,7 @@ from torbot.modules.api import get_ip
 from torbot.modules.color import color
 from torbot.modules.updater import check_version
 from torbot.modules.info import execute_all, fetch_html
-from torbot.modules.linktree import LinkTree
+from torbot.modules.linktree_checkout import LinkTree
 
 
 def print_tor_ip_address(client: httpx.Client) -> None:
@@ -80,12 +80,12 @@ def run(arg_parser: argparse.ArgumentParser, version: str) -> None:
     socks5_port = str(args.port)
     socks5_proxy = f"socks5://{socks5_host}:{socks5_port}"
     with httpx.Client(
-        timeout=60, proxies=socks5_proxy if not args.disable_socks5 else None
+        timeout=120, proxies=socks5_proxy if not args.disable_socks5 else None
     ) as client:
         # print header and IP address if not set to quiet
         if not args.quiet:
             print_header(version)
-            print_tor_ip_address(client)
+            print_tor_ip_address(client) # comment donfg nayf
 
         if args.info:
             execute_all(client, args.url)

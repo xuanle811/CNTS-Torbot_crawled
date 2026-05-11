@@ -56,21 +56,26 @@ class LinkTree(Tree):
         Creates a node for a tree using the given ID which corresponds to a URL.
         If the parent_id is None, this will be considered a root node.
         """
-        resp = self._client.get(id)
-        soup = BeautifulSoup(resp.text, "html.parser")
-        title = (
-            soup.title.text.strip() if soup.title is not None else parse_hostname(id)
-        )
         try:
-            [classification, accuracy] = classify(resp.text)
-            numbers = parse_phone_numbers(soup)
-            emails = parse_emails(soup)
-            data = LinkNode(
-                title, id, resp.status_code, classification, accuracy, numbers, emails
+            resp = self._client.get(id)
+            # resp = self._client.get(id, timeout=120.0)
+            soup = BeautifulSoup(resp.text, "html.parser")
+            title = (
+                soup.title.text.strip() if soup.title is not None else parse_hostname(id)
             )
-            self.create_node(title, identifier=id, parent=parent_id, data=data)
-        except exceptions.DuplicatedNodeIdError:
-            logging.debug(f"found a duplicate URL {id}")
+            try:
+                [classification, accuracy] = classify(resp.text)
+                numbers = parse_phone_numbers(soup)
+                emails = parse_emails(soup)
+                data = LinkNode(
+                    title, id, resp.status_code, classification, accuracy, numbers, emails
+                )
+                self.create_node(title, identifier=id, parent=parent_id, data=data)
+            except exceptions.DuplicatedNodeIdError:
+                logging.debug(f"found a duplicate URL {id}")
+        except Exception as e:
+            print(f"[-] Bỏ qua link {id} do lỗi kết nối: {e}")
+            return  # Thoát hàm để chương trình tiếp tục chạy link khác
 
     def _build_tree(self, url: str, depth: int) -> None:
         """
@@ -78,6 +83,7 @@ class LinkTree(Tree):
         """
         if depth > 0:
             depth -= 1
+            # resp = self._client.get(url, timeout=120.0)
             resp = self._client.get(url)
             children = parse_links(resp.text)
             for child in children:

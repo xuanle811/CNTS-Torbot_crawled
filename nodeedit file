@@ -1,0 +1,14 @@
+- Edit trong main
+        # print header and IP address if not set to quiet
+        if not args.quiet:
+            print_header(version)
+            # print_tor_ip_address(client) # comment donfg nayf
+
+
+- Sua tu 60 thanh 120 
+with httpx.Client(
+        timeout=120, proxies=socks5_proxy if not args.disable_socks5 else None
+    ) as client:
+        # print header and IP address if not set to quiet
+        if not args.quiet:
+            print_header(version)

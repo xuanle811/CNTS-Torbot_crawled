@@ -1,4 +1,4 @@
-BASE="http://gc3ygt7m2xtjicadvsyxopwo6aamvt2qnapnuym3pdjmj2s4t2qdm3ad.onion/products"
+BASE="http://x6l5uf2uxogl3uek2w56peu7gvs75b3dbjpp3bb7myhboqqud2kx45qd.onion/shop/"
 
 for i in {1..5}
 do

@@ -11,7 +11,7 @@ from urllib.parse import urlsplit
 from bs4 import BeautifulSoup
 from termcolor import cprint
 
-from torbot.modules.linktree import LinkTree
+from torbot.modules.linktree_checkout import LinkTree
 
 keys = set()  # high entropy strings, prolly secret keys
 files = set()  # pdf, css, png etc.

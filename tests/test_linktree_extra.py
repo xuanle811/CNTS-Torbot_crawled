@@ -5,7 +5,7 @@ These tests cover corner cases and error conditions for the parsing helpers.
 from bs4 import BeautifulSoup
 import pytest
 
-from torbot.modules.linktree import (
+from torbot.modules.linktree_checkout import (
     parse_hostname,
     parse_links,
     parse_emails,

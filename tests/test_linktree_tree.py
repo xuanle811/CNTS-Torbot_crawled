@@ -14,7 +14,7 @@ from unittest.mock import patch
 
 import pytest
 
-from torbot.modules.linktree import LinkTree, LinkNode, parse_hostname
+from torbot.modules.linktree_checkout import LinkTree, LinkNode, parse_hostname
 
 
 class FakeResponse:
